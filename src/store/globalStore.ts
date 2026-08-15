@@ -532,6 +532,18 @@ export const useGlobal = create<GlobalState>()(
       }),
   })),
 )
+
+export function getSubstate<T>(
+  key: keyof SaveFile,
+  activeOptions: ActiveOptions,
+  memcard: Memcard,
+) {
+  return activeOptions.saveFileIndex !== undefined
+    ? (memcard.saveFiles[activeOptions.saveFileIndex][key] as T)
+    : null
+}
+
+
 export function getCharacter(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].characters[activeOptions.characterIndex]
@@ -553,15 +565,5 @@ export function getVitalItems(activeOptions: ActiveOptions, memcard: Memcard) {
 export function getSkillNote(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].inventory.skillNote
-    : null
-}
-
-export function getSubstate<T>(
-  key: keyof SaveFile,
-  activeOptions: ActiveOptions,
-  memcard: Memcard,
-) {
-  return activeOptions.saveFileIndex !== undefined
-    ? (memcard.saveFiles[activeOptions.saveFileIndex][key] as T)
     : null
 }

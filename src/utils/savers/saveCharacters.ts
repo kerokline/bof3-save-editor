@@ -53,7 +53,7 @@ export default function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile
       saveFile.characters[i].accuracy,
     ]
 
-    for (let j = 0; j < 5; j++) byteArray[baseAddress + 84 + j] = byteSafety(buffer[j], 1, false)
+    for (let j = 0; j < buffer.length; j++) byteArray[baseAddress + 84 + j] = byteSafety(buffer[j], 1, false)
 
     for (let j = 0; j < elements.length; j++) {
       const element = elements[j]
