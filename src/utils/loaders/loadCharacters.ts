@@ -50,7 +50,7 @@ export default function loadCharacters(byteArray: Uint8Array) {
       statGrowth: statGrowthKeys.reduce(
         (prev, cur, i) => ({
           ...prev,
-          [cur]: byteArray[baseAddress + 133 + i],
+          [cur]: bytesToNumber(byteArray.slice(baseAddress + 133 + i, baseAddress + 134 + i), true),
         }),
         {} as Record<StatGrowthKey, number>,
       ),

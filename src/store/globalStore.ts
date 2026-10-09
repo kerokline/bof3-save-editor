@@ -543,7 +543,6 @@ export function getSubstate<T>(
     : null
 }
 
-
 export function getCharacter(activeOptions: ActiveOptions, memcard: Memcard) {
   return activeOptions.characterIndex !== undefined && activeOptions.saveFileIndex !== undefined
     ? memcard.saveFiles[activeOptions.saveFileIndex].characters[activeOptions.characterIndex]

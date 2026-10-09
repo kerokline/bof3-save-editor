@@ -53,7 +53,8 @@ export default function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile
       saveFile.characters[i].accuracy,
     ]
 
-    for (let j = 0; j < buffer.length; j++) byteArray[baseAddress + 84 + j] = byteSafety(buffer[j], 1, false)
+    for (let j = 0; j < buffer.length; j++)
+      byteArray[baseAddress + 84 + j] = byteSafety(buffer[j], 1, false)
 
     for (let j = 0; j < elements.length; j++) {
       const element = elements[j]
@@ -82,11 +83,11 @@ export default function saveCharacters(byteArray: Uint8Array, saveFile: SaveFile
     byteArray[baseAddress + 132] = saveFile.characters[i].apprenticingLevel
 
     for (let j = 0; j < statGrowthKeys.length; j++) {
-      byteArray[baseAddress + 133 + j] = byteSafety(
+      byteArray[baseAddress + 133 + j] = numberToBytes(
         saveFile.characters[i].statGrowth[statGrowthKeys[j]],
         1,
         true,
-      )
+      )[0]
     }
   }
 }
