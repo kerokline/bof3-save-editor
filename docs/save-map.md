@@ -158,7 +158,7 @@ them and they are 0 in all 100 saves.
 | `+0x1110` | 300 | Faerie names, 60 of 5 | code |
 | `+0x123C` | 116 | | zero |
 
-**No byte is live without a known use.** The bytes marked zero add up to 463 on
+**No byte is live without a known use.** The bytes marked zero add up to 462 on
 the PC, and every one is 0 in all 80 PC saves and all 20 PlayStation saves.
 
 **A gene combination row** is 4 bytes: up to three gene numbers, `0xFF` after the
