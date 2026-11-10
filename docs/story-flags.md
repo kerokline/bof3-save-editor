@@ -206,6 +206,9 @@ reference.
 
 ## 9. Two fields of this editor, checked against the code
 
+The rest of the editor's fields, and a map of the whole save, are in
+[`save-map.md`](save-map.md).
+
 Both names are right. One of the two is written wrongly.
 
 ### `+0x881`, unlocked formations: right
