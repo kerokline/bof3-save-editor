@@ -204,12 +204,38 @@ reference.
   the BreathOfFire3PCPort repository under `docs/story-flags/`, once that branch
   is merged.
 
-## 9. Two field names in this editor to look at again
+## 9. Two fields of this editor, checked against the code
 
-- **`+0x881`, "unlocked formations".** The code for three of the masters keeps
-  their one-time grant in bits of this byte.
-- **`+0xE74`, "masters".** One area's choice handler writes flag bits at this
-  address.
+Both names are right. One of the two is written wrongly.
 
-Neither is settled. They are noted because code writes there for a reason the
-current names do not cover.
+### `+0x881`, unlocked formations: right
+
+- The tactics screen opens cell `n` of the formation grid when bit `n` is set.
+- Bits 0..2 are set in every save from the first one (`0x07`).
+- Bits 3, 4 and 5 are each set once by a master (ids 11, 13 and 14) when an
+  apprentice has gained 3 levels under them. The same bits make those masters
+  show as "available" in the masters window. Master 12's reward at 3 levels is
+  an item instead, kept by event flag 108.
+- The saves of one playthrough show `0x07`, then `0x1F`, then `0x3F`.
+
+### `+0xE74`, masters: two fields, not one written twice
+
+`loadInventory` reads 3 bytes at `+0xE74`; `saveInventory` writes them to
+`+0xE74` and again to `+0xE77`. The game keeps two different 17-bit sets there:
+
+| Offset | Set when | Used for |
+|---|---|---|
+| `+0xE74` | a master's introduction opens | "met" |
+| `+0xE77` | the introduction closes | the masters window lists these |
+
+They are equal most of the time, which is why the copy looks right. They differ
+in two cases:
+
+- **Master 9.** The meeting sets the first bit; a later story step sets the
+  second. Three of the saves examined have bit 9 met and not open. Saving one of
+  them through the editor opens that master early.
+- **Master 4.** Met and not open is the state in which the game counts battles
+  in the byte at `+0xE1B`, up to 30, and a rest sets the count back to 0.
+  Saving in that state through the editor ends the count.
+
+Suggested fix: load and save `+0xE74` and `+0xE77` as two fields of 3 bytes.
